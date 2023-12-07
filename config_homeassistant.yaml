@@ -1,0 +1,73 @@
+views:
+  - title: Home
+    cards:
+      - type: vertical-stack
+        cards:
+          - graph: line
+            type: sensor
+            entity: sensor.tasmota_dht11_temperature
+            detail: 1
+            name: Temperatura
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_temperature
+                above: 22
+            card:
+              type: markdown
+              content: ' Busque abaixar a temperatura.'
+              title: Muito quente!
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_temperature
+                above: 12
+                below: 22
+            card:
+              type: markdown
+              content: A temperatura está salubre.
+              title: Temperatura ideal!
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_temperature
+                below: 12
+            card:
+              type: markdown
+              content: Busque aumentar a temperatura.
+              title: Muito frio!
+      - type: vertical-stack
+        cards:
+          - graph: line
+            type: sensor
+            entity: sensor.tasmota_dht11_humidity
+            detail: 1
+            name: Humidade
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_humidity
+                above: 30
+                below: 60
+            card:
+              type: markdown
+              content: ' A umidade está em uma faixa salubre.'
+              title: Boa umidade!
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_temperature
+                above: 60
+            card:
+              type: markdown
+              content: Busque abaixar a umidade.
+              title: Muito humido!
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.tasmota_dht11_humidity
+                below: 30
+            card:
+              type: markdown
+              content: Busque aumentar a umidade.
+              title: Muito seco!
